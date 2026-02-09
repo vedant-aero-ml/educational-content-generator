@@ -26,12 +26,16 @@ A RAG-based API that ingests PDF documents and generates educational content (MC
 
 ### Option A: Docker (Recommended)
 
+#### Run these commands form the root of the project folder
+
 ```bash
-docker build -t lc2 .
-docker run -p 8000:8000 -e GOOGLE_API_KEY=<your_key> -v $(pwd)/logs:/app/logs lc2
+docker build -t edu_content-gen .
+docker run -p 8000:8000 -e GOOGLE_API_KEY=<your_key> -v $(pwd)/logs:/app/logs edu_content-gen
 ```
 
 ### Option B: Local
+
+#### Run these commands form the root of the project folder
 
 ```bash
 python -m venv venv && source venv/bin/activate
