@@ -285,8 +285,8 @@ The system parses natural language into structured intents:
 
 | Prompt | Parsed As |
 |---|---|
-| `"generate 5 mcqs on linear equations with mixed level of difficulty"` | mode=mcq, topic=linear equations, n=5 |
-| `"create 10 multiple choice questions about quadratics, medium difficulty"` | mode=mcq, topic=quadratics, n=10, difficulty=hard |
+| `"generate 5 mcqs on linear equations with mixed level of difficulty"` | mode=mcq, topic=linear equations, n=5, difficulty=mixed |
+| `"create 5 multiple choice questions about quadratics, medium difficulty"` | mode=mcq, topic=quadratics, n=5, difficulty=hard |
 | `"make 3 fill in the blanks for the quadratic formula"` | mode=fill_blank, topic=quadratic formula, n=3 |
 | `"summarize all sections separately"` | mode=summary_per_section, global_scope=true |
 
