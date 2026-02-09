@@ -47,6 +47,17 @@ python main.py
 #### Swagger UI will be available here [`http://localhost:8000/docs`](http://localhost:8000/docs).
 #### The API is live at `http://localhost:8000`.
 
+### Usage Flow
+
+1. **Ingest a PDF**
+   - Upload a PDF using `POST /ingest`
+   - Copy the returned `ingestion_id`
+
+2. **Generate Content**
+   - Pass the same `ingestion_id` in `POST /generate`
+   - All generated content will be scoped to that PDF only
+
+
 ---
 
 ## Project Structure
@@ -118,7 +129,7 @@ The generate pipeline starts by parsing the user's free-form prompt into a struc
 
 ---
 
-## API Reference
+## API Usage Instructions
 
 Post deployment with Docker, it is recoemmended to use FasAPI Swagger UI to execeute the APIs at [http://localhost:8000/docs](http://localhost:8000/docs).
 
@@ -146,31 +157,31 @@ curl -X POST http://localhost:8000/ingest -F "file=@textbook.pdf"
 
 ```json
 {
-  "ingestion_id": "903aff78-d445-4866-b3f2-7ae6e27dafbe",
-  "file_name": "textbook.pdf",
-  "pages": 31,
+  "ingestion_id": uuid,
+  "file_name": "Algebra.pdf",
+  "pages": int,
   "toc": [
-    {"section": "1 Simplifying Expressions"},
-    {"section": "2 Linear Equations"}
+    {"section": "1 ..."},
+    {"section": "2 ..."}
   ],
-  "summary": "Successfully ingested 74 chunks from 31 pages.",
+  "summary": "Successfully ingested ... chunks from ... pages.",
   "stats": {
-    "n_chunks": 74,
-    "n_tables": 2,
-    "n_equations": 0
+    "n_chunks": int,
+    "n_tables": int,
+    "n_equations": int
   }
 }
 ```
 
 ### `POST /generate` - Generate Learning Content
 
-Generate MCQs, fill-in-the-blanks, or summaries from an ingested PDF.
+Generate MCQs, fill-in-the-blanks, or summaries from a **specific previously ingested PDF**, identified by its `ingestion_id`.
 
 **Request:** `application/json`
 
 ```json
 {
-  "ingestion_id": "903aff78-d445-4866-b3f2-7ae6e27dafbe",
+  "ingestion_id": ingestion_id - GENERATED FROM THE INGEST ENDPOINT,
   "user_prompt": "generate 5 mcqs on linear equations, medium difficulty"
 }
 ```
@@ -179,7 +190,7 @@ Generate MCQs, fill-in-the-blanks, or summaries from an ingested PDF.
 
 ```json
 {
-  "request_id": "f1a2b3c4-d5e6-7890-abcd-ef1234567890",
+  "request_id": uuid,
   "generated_learning_content": [
     {
       "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
